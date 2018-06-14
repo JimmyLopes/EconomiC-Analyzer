@@ -1,6 +1,11 @@
 <?php
 
+
+ini_set('display_errors', 1);
 require_once "classes/template.php";
+require_once "db/graficosDAO.php";
+
+$dao = new graficosDAO();
 
 $template = new Template();
 
@@ -26,8 +31,8 @@ $template->mainpanel();
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Capacity</p>
-                                            105GB
+                                            <p>Pagamento</p>
+                                            R$<?= $dao->totalPago()[0]->total?>
                                         </div>
                                     </div>
                                 </div>
@@ -51,8 +56,8 @@ $template->mainpanel();
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Revenue</p>
-                                            $1,345
+                                            <p>Ultimo Mes</p>
+                                            R$<?= $dao->somaPagaUltimoMes()[0]->total?>
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +81,8 @@ $template->mainpanel();
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Errors</p>
-                                            23
+                                            <p>Média Últ Mês</p>
+                                            R$<?= $dao->mediaUltimoMes()?>
                                         </div>
                                     </div>
                                 </div>
@@ -101,8 +106,8 @@ $template->mainpanel();
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Followers</p>
-                                            +45
+                                            <p>Beneficiários</p>
+                                            <?= $dao->totalBeneficiarios()->total ?>
                                         </div>
                                     </div>
                                 </div>
@@ -121,11 +126,10 @@ $template->mainpanel();
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
+                                <h4 class="title"> Beneficiário por mês e ano</h4>
                             </div>
                             <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
+                            <img width="1000" height="500" id="imgGrafico1" src="grafico/grafico01.php">
                                 <div class="footer">
                                     <div class="chart-legend">
                                         <i class="fa fa-circle text-info"></i> Open
@@ -133,8 +137,8 @@ $template->mainpanel();
                                         <i class="fa fa-circle text-warning"></i> Click Second Time
                                     </div>
                                     <hr>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    <div class="stats">                                        
+                                        <i class="ti-info-alt"></i> Historic Serie | <i class="ti-export"></i><a href="grafico/grafico03.php"> Export PDF</a>
                                     </div>
                                 </div>
                             </div>
@@ -145,12 +149,11 @@ $template->mainpanel();
                     <div class="col-md-6">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
+                                <h4 class="title">Beneficiários por mês e estado</h4>
                             </div>
                             <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
+                            <img width="450" height="300" id="imgGrafico2" src="grafico/grafico02.php">
+                                
                                 <div class="footer">
                                     <div class="chart-legend">
                                         <i class="fa fa-circle text-info"></i> Open
@@ -159,7 +162,7 @@ $template->mainpanel();
                                     </div>
                                     <hr>
                                     <div class="stats">
-                                        <i class="ti-timer"></i> Campaign sent 2 days ago
+                                        <i class="ti-timer"></i> Total | <i class="ti-export"></i><a href="grafico/grafico02.php"> Export PDF</a>
                                     </div>
                                 </div>
                             </div>
@@ -168,11 +171,10 @@ $template->mainpanel();
                     <div class="col-md-6">
                         <div class="card ">
                             <div class="header">
-                                <h4 class="title">2015 Sales</h4>
-                                <p class="category">All products including Taxes</p>
+                                <h4 class="title">Valores pagos por mês e estado</h4>
                             </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
+                            <div class="content">                            
+                            <img width="450" height="300" id="imgGrafico3" src="grafico/grafico03.php">
 
                                 <div class="footer">
                                     <div class="chart-legend">
@@ -181,8 +183,7 @@ $template->mainpanel();
                                     </div>
                                     <hr>
                                     <div class="stats">
-                                        <i class="ti-check"></i> Data information certified
-                                    </div>
+                                    <i class="ti-check"></i> Last Month | <i class="ti-export"></i><a href="grafico/grafico03.php"> Export PDF</a>
                                 </div>
                             </div>
                         </div>
