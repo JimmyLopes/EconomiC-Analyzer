@@ -15,7 +15,7 @@ class programaDAO
         global $pdo;
         try {
             $statement = $pdo->prepare("DELETE FROM tb_program WHERE id_program = :idPrograma");
-            $statement->bindValue(":id", $programa->getIdPrograma());
+            $statement->bindValue(":idPrograma", $programa->getIdPrograma());
             if ($statement->execute()) {
                 return "O Programa foi excluído com êxito";
             } else {
@@ -52,7 +52,8 @@ class programaDAO
     public function atualizar($programa){
         global $pdo;
         try {
-            $statement = $pdo->prepare("SELECT id_program, str_cod_program, str_name_program FROM tb_program WHERE id_program = :idPrograma");
+            $statement = $pdo->prepare("SELECT id_program, str_cod_program, str_name_program FROM 
+            tb_program WHERE id_program = :idPrograma");
             $statement->bindValue(":idPrograma", $programa->getIdPrograma());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);

@@ -3,11 +3,8 @@
 require_once "fpdf/fpdf181/fpdf.php";
 
 $query = "SELECT s.str_name estado, sum(p.tb_beneficiaries_id_beneficiaries) qtde, p.int_month mes
-FROM tb_payments p 
-inner join tb_city c 
-inner join tb_state s 
-where p.tb_city_id_city = c.id_city and c.tb_state_id_state = s.id_state
-group by s.id_state, p.int_month;";
+FROM tb_payments p inner join tb_city c inner join tb_state s where p.tb_city_id_city = c.id_city 
+and c.tb_state_id_state = s.id_state group by s.id_state, p.int_month;";
 
 $statement = $pdo->prepare($query);
 $statement->execute();
@@ -31,7 +28,7 @@ $grafico->SetImageBorderType('plain');
 $grafico->SetPlotType('bars');
 $grafico->SetDataType('text-data');
 $grafico->SetDataValues($data);
-$grafico->SetTitle(utf8_decode("Beneficiaries by state"));
+$grafico->SetTitle(utf8_decode("Beneficiários por mes e estado"));
 
 # Turn off X tick labels and ticks because they don't apply here:
 $grafico->SetXTickLabelPos('none');

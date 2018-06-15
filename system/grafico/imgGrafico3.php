@@ -4,9 +4,7 @@
 require_once "fpdf/fpdf181/fpdf.php";
 
 $query = "SELECT s.str_uf estado, sum(p.db_value) valor
-FROM tb_payments p 
-inner join tb_city c 
-inner join tb_state s 
+FROM tb_payments p inner join tb_city c inner join tb_state s 
 where p.tb_city_id_city = c.id_city and c.tb_state_id_state = s.id_state
 group by s.id_state;";
 
@@ -23,8 +21,7 @@ $data = array();
 if(isset($resultado)) {
     foreach ($resultado as $r){
         $data[] = [$r['estado'], $r['valor'] ];
-        //var_dump($r);
-        //echo '<br>';
+        
     }
 } else {
     $data[]=[null,null,null];
@@ -50,7 +47,7 @@ $grafico->SetDataColors(
 );
 
 # Main plot title:
-$grafico->SetTitle("Values per state");
+$grafico->SetTitle("Valores por estado");
 
 # Build a legend from our data array.
 # Each call to SetLegend makes one line as "label: value".

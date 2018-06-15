@@ -60,7 +60,8 @@ class estadoDAO
     {
         global $pdo;
         try {
-            $statement = $pdo->prepare("SELECT id_state, str_uf, str_name, tb_region_id_region FROM tb_state WHERE id_state = :idEstado");
+            $statement = $pdo->prepare("SELECT id_state, str_uf, str_name, tb_region_id_region 
+            FROM tb_state WHERE id_state = :idEstado");
             $statement->bindValue(":idEstado", $estado->getIdEstado());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);

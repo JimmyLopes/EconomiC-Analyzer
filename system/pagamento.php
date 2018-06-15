@@ -24,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $beneficiario = (isset($_POST["beneficiario"]) && $_POST["beneficiario"] != null) ? $_POST["beneficiario"] : "";
     $fonte = (isset($_POST["fonte"]) && $_POST["fonte"] != null) ? $_POST["fonte"] : "";
     $arquivo = (isset($_POST["arquivo"]) && $_POST["arquivo"] != null) ? $_POST["arquivo"] : "";
+    $mes = (isset($_POST["mes"]) && $_POST["mes"] != null) ? $_POST["mes"] : "";
+    $year = (isset($_POST["year"]) && $_POST["year"] != null) ? $_POST["year"] : "";
     $valor = (isset($_POST["valor"]) && $_POST["valor"] != null) ? $_POST["valor"] : "";
 
 } else if (!isset($id)) {
@@ -37,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $beneficiario = NULL;
     $fonte = NULL;
     $arquivo = NULL;
+    $mes = NULL;
+    $year = NULL;
     $valor = NULL;
 
 }
@@ -54,12 +58,14 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
     $beneficiario = $resultado->getIdBeneficiario();
     $fonte = $resultado->getIdFonte();
     $arquivo = $resultado->getIdArquivo();
+    $mes = $resultado->getMes();
+    $year = $resultado->getYear();
     $valor = $resultado->getValor();
 
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $cidade != "" && $funcao != ""&& $subfuncao != ""&& $programa != ""&& $acao != ""&& $beneficiario != ""&& $fonte != ""&& $arquivo != "") {
-    $pagamento = new pagamento($id, $cidade,  $funcao, $subfuncao, $programa, $acao, $beneficiario, $fonte, $arquivo, $valor);
+    $pagamento = new pagamento($id, $cidade,  $funcao, $subfuncao, $programa, $acao, $beneficiario, $fonte, $arquivo, $mes, $year, $valor);
     $msg = $object->salvar($pagamento);
     $id = null;
     $cidade = null;
@@ -70,11 +76,13 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $cidade != "" && $f
     $beneficiario = NULL;
     $fonte = NULL;
     $arquivo = NULL;
+    $mes = NULL;
+    $year = NULL;
     $valor = NULL;
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
-    $pagamento = new pagamento($id, '', '','');
+    $pagamento = new Pagamentos($id, '', '','','','','','','','','','');
     $msg = $object->remover($pagamento);
     $id = null;
 }
@@ -262,6 +270,14 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                                 
                                 ?>
                                 </select>
+                                Mês:
+                                <input type="number" name="mes" value="<?php
+                                echo (isset($mes) && ($mes != null || $mes != "")) ? $mes : '';
+                                ?>"/>
+                                Ano:
+                                <input type="number" name="year" value="<?php
+                                echo (isset($year) && ($year != null || $year != "")) ? $year : '';
+                                ?>"/>
                                 Valor:
                                 <input type="number" name="valor" value="<?php
                                 echo (isset($valor) && ($valor != null || $valor != "")) ? $valor : '';

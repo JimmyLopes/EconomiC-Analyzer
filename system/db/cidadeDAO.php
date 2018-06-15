@@ -60,7 +60,8 @@ class cidadeDAO
     {
         global $pdo;
         try {
-            $statement = $pdo->prepare("SELECT id_city, str_name_city, str_cod_siafi_city, tb_state_id_state FROM tb_city WHERE id_city = :idCidade");
+            $statement = $pdo->prepare("SELECT id_city, str_name_city, str_cod_siafi_city, tb_state_id_state 
+            FROM tb_city WHERE id_city = :idCidade");
             $statement->bindValue(":idCidade", $cidade->getIdCidade());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);

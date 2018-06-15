@@ -71,10 +71,7 @@ class pagamentoDAO
     public function atualizar($pagamento){
         global $pdo;
         try {
-            $statement = $pdo->prepare("SELECT id_payment, tb_city_id_city, tb_functon_id_function,
-            tb_subfunction_id_subfunction, tb_program_id_program, tb_action_id_action, 
-            tb_beneficiaries_id_beneficiaries, tb_source_id_source ,tb_files_id_file,int_month,int_year, 
-            db_value FROM tb_payments WHERE id_payment = :idPagamento");
+            $statement = $pdo->prepare("SELECT * FROM tb_payments WHERE id_payment = :idPagamento");
             $statement->bindValue(":idPagamento", $pagamento->getIdPagamento());
             if ($statement->execute()) {
                 $rs = $statement->fetch(PDO::FETCH_OBJ);
